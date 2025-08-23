@@ -39,16 +39,16 @@ function calculateStats(){
         }
 
         const deviations = data.map( x => x - mean);
-        const variance = deviations.reduce((sum, dev) => sum + dev * dev, 0) / data.length;
-
-
+        const variance = deviations.reduce((sum, dev) => sum + dev * dev, 0) / data.length
         const stdDev = Math.sqrt(variance);
+
 
         document.getElementById('results').innerHTML = `<p><b>평균 : </b>${mean.toFixed(2)}</p>
         <p><b>중앙값 : </b>${median}</p>
         <p><b>최빈값 : </b>${modes.join(',')}</p>
         <p><b>분산:</b> ${variance.toFixed(2)}</p>
-        <p><b>표준편차:</b> ${stdDev.toFixed(2)}</p>`;
+        <p><b>표준편차:</b> 루트${variance.toFixed(2)}</p>
+        <p><b>정확한 표준편차:</b> ${stdDev.toFixed(2)}</p>`;
 
     } catch(error){
         document.getElementById('results').innerHTML = '<p>올바른 배열 형식으로 입력하세요 (예: [1,2,3,4])</p>';
