@@ -35,7 +35,7 @@ function drawScatterPlot(xData,yData) {
         const y = canvas.height - padding - (yData[i] / maxY) * height;
         ctx.beginPath();
         ctx.arc(x, y, 4, 0, 2 * Math.PI);
-        ctx.fillStyle = '#eb416cff';
+        ctx.fillStyle = '#AEAF98';
         ctx.fill();
     }
 }
