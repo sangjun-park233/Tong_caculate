@@ -7,25 +7,41 @@
     <link rel="stylesheet"  href="style.css">
 </head>
 <body>
-    <header>
-        <h1>통계 계산/ 산포도 생성</h1>
-    </header>
-    <main>
-        <div class = "container">
-            <input id = 'numbers' type="text" placeholder="예 [1,2,3,4,5,6,7]">
-            <button onclick="calculateStats()">계산하기</button>
-            <div id = "results" class = "result"></div>
+        <div class="tab-buttons">
+        <button onclick="showTab('stats')">통계 계산기</button>
+        <button onclick="showTab('permcomb')">순열·조합 계산기</button>
         </div>
-        <div class="container">
-            <h1>통계 그래프</h1>
-            <input id = "xValues" type="text" placeholder="X축 값 배열 예 : [1,2 3,4,5,6,7]">
-            <input id = "yValues" type="text" placeholder="y축 값 배열 예 : [7,6,5,4,3,2,1]">
-            <button onclick="drawScatterPlotFromInputs()">그래프 그리기</button>
-            <canvas id = "scatterPlot" width="400" height="300"></canvas>
+        <div id = "stats" class = "container">
+            <div class = "stats-wrapper">
+                <div class="calculator">
+                    <h1>통계 계산기</h1>
+                    <input id = 'numbers' type="text" placeholder="예 [1,2,3,4,5,6,7]">
+                    <button onclick="calculateStats()">계산하기</button>
+                    <div id = "results" class = "result"></div>
+                </div>
+                <div class = "graph">
+                    <h1>통계 그래프</h1>
+                    <input id = "xValues" type="text" placeholder="X축 값 배열 예 : [1,2 3,4,5,6,7]">
+                    <input id = "yValues" type="text" placeholder="y축 값 배열 예 : [7,6,5,4,3,2,1]">
+                    <button onclick="drawScatterPlotFromInputs()">그래프 그리기</button>
+                    <canvas id = "scatterPlot" width="300" height="300"></canvas>
+                </div>
+            </div>
         </div>
-    </main>
+        <div id = "permcomb" class="container hidden">
+            <h1>순열 ° 조합 계산기</h1>
+            <input id ='n' type ='number' min = '0' placeholder="n을 입력하세요.">
+            <input id ='r' type ='number' min = '0' placeholder="r을 입력하세요.">
+            <br>
+            <button onclick = 'calculateFactorial()'>n! 계산하기</button>
+            <button onclick = 'calculatePermutation()'>P(n,r)계산하기</button>
+            <button onclick = 'calculateCombination()'>C(n,r)계산하기</button>
+            <div id="result" class="result">결과가 여기에 표시됩니다.</div>
+        </div>
+    
     <script src="script.js"></script>
     <script src="graph.js"></script>
-    
+    <script src = "PC.js"></script>
+    <script src="tabChange.js"></script>
 </body>
 </html>
