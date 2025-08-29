@@ -1,105 +1,166 @@
 body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f6f8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-.container {
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      width: 700px;
-      text-align: center;
-    }
-.stats-wrapper {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
     display: flex;
-    flex-direction: row;    /* 왼쪽->오른쪽 */
-    gap: 20px;              /* 영역 사이 간격 */
-    margin-top: 20px;
+    flex-direction: column;
+    background-color: #f4f6f8;
+    transition: background-color 0.3s;
 }
 
-.calculator, .graph {
-    flex: 1;                /* 공간 균등 분할 */
-    min-width: 300px;       /* 너무 좁아지면 아래로 내려감 */
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-}
-h1 { margin-bottom: 8px; }
-p { margin-top: 0; color:#333 }
-    input[type="number"] {
-      width: 40%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      margin: 5px;
-      font-size: 16px;
-    }
-button {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 8px;
-      background-color: #007bff;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 10px;
-      margin-right: 6px;
-    }
+/* 탭 버튼 */
 .tab-buttons {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            background-color: #f1f1f1;
-            padding: 10px 0;
-            gap: 10px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-        }
-
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #f1f1f1;
+    padding: 10px 0;
+    gap: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
 .tab-buttons button {
-            padding: 8px 15px;
-            font-size: 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            background-color: #007BFF;
-            color: white;
-            transition: background-color 0.3s;
-        }
-
+    padding: 8px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    transition: background-color 0.3s;
+}
 .tab-buttons button:hover {
-            background-color: #0056b3;
-        }
-.hidden {
-            display: none;
-        }
-    
-button:hover { background-color: #0056b3; }
-.result {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 8px;
-      background-color: #f0f8ff;
-      font-family: monospace;
-      word-break: break-word;
-      min-height: 40px;
-    }
-.result p {
-    margin: 5px 0;
+    background-color: #0056b3;
 }
 
-/* 캔버스 */
-canvas {
-    margin-top: 20px;
-    border: 1px solid #EEEEEE;
+/* 각 탭 컨테이너 */
+.container {
+    position: absolute;
+    top: 50px; /* 탭 버튼 아래 */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 카드 래퍼 */
+.cards-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* 카드 기본 스타일 */
+.card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 20px;
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+/* 입력창, 버튼 */
+.card input[type="text"], .card input[type="number"] {
+    width: 80%;
+    padding: 10px;
+    margin: 8px 0;
     border-radius: 8px;
-    background-color: #FAF9EE;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+.card button {
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+.card button:hover {
+    background-color: #0056b3;
+}
+
+/* 결과 박스 */
+.result {
+    width: 90%;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f0f8ff;
+    font-family: monospace;
+    min-height: 40px;
+}
+
+/* 테마 박스 */
+.theme-boxes {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.theme-square {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: transform 0.2s;
+}
+.theme-square:hover {
+    transform: scale(1.1);
+}
+
+/* 숨김 처리 */
+.hidden {
+    display: none;
+}
+footer {
+    position: fixed;   /* 항상 화면 아래 고정 */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+    z-index: 1001;     /* 탭 버튼보다 위에 나타나게 */
+}
+.num-pad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    margin-top: 10px;
+}
+.num-pad button {
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 6px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.num-pad button:hover {
+    background-color: #357ABD;
+}
+
+
+/* 반응형 */
+@media (max-width: 700px) {
+    .cards-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
 }
